@@ -27,7 +27,7 @@ const Navbar =()=>{
 
     const handleSearch=()=>{
         if(searchQuery)
-            navigate(`/home/search/${searchQuery}`);
+            navigate(`/search/${searchQuery}`);
     }
 
 
@@ -97,7 +97,10 @@ const Navbar =()=>{
                             All Courses
                         </MenuItem>
                         <MenuItem onClick={()=>navigate("/mycourses")}>
-                            My Courses
+                            Ongoing Courses
+                        </MenuItem>
+                        <MenuItem onClick={()=>navigate("/completed")}>
+                            Completed Courses
                         </MenuItem>
                     </Select>
                 </FormControl>

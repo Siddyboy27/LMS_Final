@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import Navbar from "../navbar";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import axios from "axios";
@@ -12,11 +12,10 @@ const CourseDetailPage = () => {
   const { palette } = useTheme();
   const user = useSelector((state) => state.user);
   const userId = user._id;
-
+  const navigate=useNavigate();
   const isRegistered = Boolean(user.coursesRegistered[course?._id]);
-  console.log(isRegistered);
   const dispatch = useDispatch();
-
+  
   const getCourse = async () => {
     const response = await axios.get(
       `http://localhost:5000/courses/${courseId}`
@@ -32,7 +31,7 @@ const CourseDetailPage = () => {
 
   const registerCourse = async () => {
     const response = axios.patch(
-      `http://localhost:5000/courses//registerCourse/${course._id}`,
+      `http://localhost:5000/courses/registerCourse/${course._id}`,
       { userId }
     );
     const updatedUser = (await response).data;

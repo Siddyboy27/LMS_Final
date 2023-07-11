@@ -30,9 +30,9 @@ const UserSchema = new mongoose.Schema(
       of:Boolean,
       default:{}
     },
-    courseMarks:{
+    courseComplete:{
       type:Map,
-      of:Number,
+      of:Boolean,
       default:{}
     }
   },

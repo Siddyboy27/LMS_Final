@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../navbar";
 import { Box, useTheme } from "@mui/material";
 import { Typography, Button } from "@mui/material";
@@ -8,10 +8,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import courses from "../../data/courses";
+//import courses from "../../data/courses";
 import { useNavigate } from "react-router-dom";
 import Card from "../../components/Card";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 
 
@@ -19,7 +20,18 @@ const HomePage = () => {
 
   const {palette}=useTheme();
   const navigate = useNavigate();
-  
+  const [courses,setCourses]=useState(null);
+  const getCourses = async () => {
+    const response = await axios.get(
+      "http://localhost:5000/courses/Allcourses"
+    );
+    const data = await response.data;
+    setCourses(data.slice(0,10));
+  };
+
+  useEffect(() => {
+    getCourses();
+  }, []);
   
   return (
     <Box>
@@ -37,7 +49,7 @@ const HomePage = () => {
           onSlideChange={() => console.log("slide change")}
           style={{ padding: "2.5rem" }}
         >
-          {courses.slice(0, 10).map((course) => (
+          {courses?.map((course) => (
             <SwiperSlide key={course.id}>
               <Card item={course} type={"ViewCard"}/>
             </SwiperSlide>
